@@ -23,9 +23,10 @@ namespace Intex
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/styles").Include(
+                      "~/Content/css/bootstrap.css",
+                      "~/Content/css/site.css",
+                      "~/Content/css/custom.css"));
         }
     }
 }
