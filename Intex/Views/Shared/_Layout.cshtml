@@ -28,6 +28,8 @@
                     <li>@Html.ActionLink("Get a Quote", "Quote", "Home")</li> <!-- FIXME: Make controller/method -->
                 </ul>
 
+                @Html.Partial("_LoginPartial")
+                
                 <!-- Client Signed In -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("View Orders", "About", "Home")</li> <!-- FIXME: Make controller/method -->
@@ -39,7 +41,7 @@
                     <li>@Html.ActionLink("Work Orders", "About", "Home")</li> <!-- FIXME: Make controller/method -->
                 </ul>
 
-                @Html.Partial("_LoginPartial")
+                
             </div>
         </div>
     </div>
