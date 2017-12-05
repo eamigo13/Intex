@@ -24,6 +24,6 @@ namespace Intex.Models
         [ForeignKey("CustomerID")]
         public virtual Customer Customer { get; set; }
         [ForeignKey("StatusID")]
-        public virtual Status Status { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
     }
 }
