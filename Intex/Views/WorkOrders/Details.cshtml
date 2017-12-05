@@ -1,0 +1,66 @@
+﻿@model Intex.Models.WorkOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WorkOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderStatus.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderStatus.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderType.OrderTypeDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderType.OrderTypeDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuoteDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuoteDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderNumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
