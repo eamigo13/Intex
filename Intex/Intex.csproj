@@ -231,6 +231,7 @@
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\img\brand.png" />
+    <Content Include="Content\img\report_brand.png" />
     <Content Include="Content\img\vial.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
