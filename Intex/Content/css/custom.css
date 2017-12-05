@@ -1,5 +1,5 @@
 .row {
-    background: lightgrey;
+    background: linear-gradient(to right top, white, lightyellow);
 }
 
 .split-page {
@@ -8,7 +8,7 @@
 
 .btn-huge {
     padding: 10px 32px;
-    font-size: 36px;
+    font-size: calc(1vw + 10px); /* Makes it responsive */
     line-height: 1.33;
     border-radius: 6px;
 }
