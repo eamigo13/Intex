@@ -1,4 +1,29 @@
+.row {
+    background: linear-gradient(to right top, #9eff99, lightyellow);
+}
 
+.split-page {
+    margin: 100px 0;
+}
+
+.btn-huge {
+    padding: 10px 32px;
+    font-size: calc(1vw + 10px); /* Makes it responsive */
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+.call-to-action {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.landing-image {
+    height: 400px;
+    margin: 0 auto;
+}
 
 /** Custom Navbar Colors **/
 .navbar {

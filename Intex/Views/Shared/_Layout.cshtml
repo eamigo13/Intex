@@ -26,7 +26,10 @@
                 
                 <!-- Visible to everyone -->
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
+                    @{ /* Need to have a method for pricing */}
+                    <li>@Html.ActionLink("Pricing", "About", "Home")</li>
                 </ul>
 
                 <!-- Login Information -->
