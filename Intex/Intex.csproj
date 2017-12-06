@@ -225,6 +225,7 @@
     <Compile Include="Models\TestType.cs" />
     <Compile Include="Models\WageType.cs" />
     <Compile Include="Models\WorkOrder.cs" />
+    <Compile Include="Models\WorkOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

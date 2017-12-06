@@ -12,20 +12,28 @@ namespace Intex.Models
     {
         [Key]
         public int TestID { get; set; }
-        public int OrderNumber { get; set; }
-        public int SampleID { get; set; }
         public int TestTypeID { get; set; }
+        [ForeignKey("WorkOrderLine")]
+        public int OrderNumber { get; set; }
+        [ForeignKey("WorkOrderLine")]
+        public int OrderLine { get; set; }
+        public decimal TestCost { get; set; }
         public DateTime ScheduledDate { get; set; }
         public DateTime CompletedDate { get; set; }
         public int EmployeeID { get; set; }
 
-        [ForeignKey("OrderNumber")]
-        public virtual WorkOrder WorkOrder { get; set; }
-        [ForeignKey("SampleID")]
-        public virtual Sample Sample { get; set; }
+        public virtual WorkOrderLine WorkOrderLine { get; set; }
+
         [ForeignKey("TestTypeID")]
         public virtual TestType TestType { get; set; }
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }
+
+        public int ProductId { get; set; }
+        public string Name { get; set; }
+        [ForeignKey("Category"), Column(Order = 0)]
+        public int CategoryId2 { get; set; }
+        [ForeignKey("Category"), Column(Order = 1)]
+        public int CategoryId3 { get; set; }
     }
 }
