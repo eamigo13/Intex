@@ -214,7 +214,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\OrderCompound.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\OrderType.cs" />
     <Compile Include="Models\ResultFile.cs" />
@@ -305,6 +304,7 @@
     <Content Include="Views\Compounds\Details.cshtml" />
     <Content Include="Views\Compounds\Edit.cshtml" />
     <Content Include="Views\Compounds\Index.cshtml" />
+    <Content Include="Views\WorkOrders\Quote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

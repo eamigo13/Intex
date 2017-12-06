@@ -5,21 +5,32 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using Intex.DAL;
 using Intex.Models;
 
 namespace Intex.Controllers
 {
+    [Authorize]
     public class WorkOrdersController : Controller
     {
         private IntexContext db = new IntexContext();
-
+        
         // GET: WorkOrders
         public ActionResult Index()
         {
             var workOrders = db.WorkOrders.Include(w => w.Customer).Include(w => w.OrderStatus).Include(w => w.OrderType);
             return View(workOrders.ToList());
+        }
+        
+        public ActionResult Quote()
+        {
+            WorkOrder workOrder = new WorkOrder();
+            workOrder.CustomerID = User.Identity.GetUserId();
+            workOrder.StatusID = 1;  // New
+
+            return View();
         }
 
         // GET: WorkOrders/Details/5

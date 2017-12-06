@@ -13,7 +13,7 @@ namespace Intex.Models
         [Key]
         public int OrderNumber { get; set; }
         public int OrderTypeID { get; set; }
-        public int CustomerID { get; set; }
+        public string CustomerID { get; set; }
         public DateTime QuoteDate { get; set; }
         public DateTime OrderDate { get; set; }
         public int StatusID { get; set; }

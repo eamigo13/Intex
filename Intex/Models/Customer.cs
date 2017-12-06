@@ -11,7 +11,7 @@ namespace Intex.Models
     public class Customer
     {
         [Key]
-        public int CustomerID { get; set; }
+        public string CustomerID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
