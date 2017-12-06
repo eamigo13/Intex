@@ -13,9 +13,9 @@ namespace Intex.Models
         [Key]
         public int TestID { get; set; }
         public int TestTypeID { get; set; }
-        [ForeignKey("WorkOrderLine")]
+        [ForeignKey("WorkOrderLine"), Column(Order = 0)]
         public int OrderNumber { get; set; }
-        [ForeignKey("WorkOrderLine")]
+        [ForeignKey("WorkOrderLine"), Column(Order = 1)]
         public int OrderLine { get; set; }
         public decimal TestCost { get; set; }
         public DateTime ScheduledDate { get; set; }

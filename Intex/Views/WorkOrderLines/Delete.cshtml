@@ -1,0 +1,56 @@
+﻿@model Intex.Models.WorkOrderLine
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>WorkOrderLine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Assay.AssayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Assay.AssayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sample.ReceivingNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sample.ReceivingNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkOrder.CustomerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkOrder.CustomerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineCost)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

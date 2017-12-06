@@ -197,6 +197,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\WorkOrderLinesController.cs" />
     <Compile Include="Controllers\WorkOrdersController.cs" />
     <Compile Include="DAL\IntexContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -307,6 +308,11 @@
     <Content Include="Views\Compounds\Edit.cshtml" />
     <Content Include="Views\Compounds\Index.cshtml" />
     <Content Include="Views\WorkOrders\Quote.cshtml" />
+    <Content Include="Views\WorkOrderLines\Create.cshtml" />
+    <Content Include="Views\WorkOrderLines\Delete.cshtml" />
+    <Content Include="Views\WorkOrderLines\Details.cshtml" />
+    <Content Include="Views\WorkOrderLines\Edit.cshtml" />
+    <Content Include="Views\WorkOrderLines\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
