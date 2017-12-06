@@ -24,12 +24,32 @@ namespace Intex.Controllers
             return View(workOrders.ToList());
         }
         
-        public ActionResult Quote()
+        public ActionResult Quote(int? workOrderID)
         {
-            WorkOrder workOrder = new WorkOrder();
-            workOrder.CustomerID = User.Identity.GetUserId();
-            workOrder.StatusID = 1;  // New
+            if (workOrderID != null)
+            {
+                WorkOrder activeOrder = db.WorkOrders.Find(workOrderID);
 
+                ViewBag.ActiveOrder = activeOrder;
+
+                var compoundsInOrder = from c in db.OrderCompounds
+                                       where c.OrderNumber == activeOrder.OrderNumber
+                                       select c;
+
+                return View(compoundsInOrder.ToList());
+            }
+            else if (workOrderID == null)
+            {
+                WorkOrder workOrder = new WorkOrder();
+                workOrder.CustomerID = User.Identity.GetUserId();
+                workOrder.StatusID = 1;  // New
+                if (ModelState.IsValid)
+                {
+                    db.WorkOrders.Add(workOrder);
+                    db.SaveChanges();
+                }
+            }
+           
             return View();
         }
 
