@@ -28,12 +28,5 @@ namespace Intex.Models
         public virtual TestType TestType { get; set; }
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }
-
-        public int ProductId { get; set; }
-        public string Name { get; set; }
-        [ForeignKey("Category"), Column(Order = 0)]
-        public int CategoryId2 { get; set; }
-        [ForeignKey("Category"), Column(Order = 1)]
-        public int CategoryId3 { get; set; }
     }
 }
