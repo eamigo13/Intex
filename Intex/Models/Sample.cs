@@ -16,11 +16,7 @@ namespace Intex.Models
         public decimal ReportedQty { get; set; }
         public decimal MeasuredQty { get; set; }
         public decimal MTD { get; set; }
-        public DateTime DateArrived { get; set; }
-        public string ReceivedBy { get; set; }
-        public DateTime DueDate { get; set; }
         public int AppearanceID { get; set; }
-        public string ReceivingNotes { get; set; }
 
         [ForeignKey("CompoundID")]
         public virtual Compound Compound { get; set; }
