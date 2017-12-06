@@ -12,15 +12,11 @@ namespace Intex.Models
     {
         [Key]
         public int CompoundID { get; set; }
+        public int CustomerID { get; set; }
         public string CompoundName { get; set; }
         public decimal MolecularMass { get; set; }
-        public DateTime DateArrived { get; set; }
-        public int ReceivedBy { get; set; }
-        public DateTime DueDate { get; set; }
-        public string ReceivingNotes { get; set; }
-        public decimal TotalQty { get; set; }
 
-        [ForeignKey("ReceivedBy")]
-        public virtual Employee Employee { get; set; }
+        [ForeignKey("CustomerID")]
+        public virtual Customer Customer { get; set; }
     }
 }

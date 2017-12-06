@@ -15,6 +15,9 @@ namespace Intex.Models
         public int CompoundID { get; set; }
         public decimal ReportedQty { get; set; }
         public decimal MeasuredQty { get; set; }
+        public DateTime DateArrived { get; set; }
+        public int ReceivedBy { get; set; }
+        public string ReceivingNotes { get; set; }
         public decimal MTD { get; set; }
         public int AppearanceID { get; set; }
 
@@ -22,5 +25,7 @@ namespace Intex.Models
         public virtual Compound Compound { get; set; }
         [ForeignKey("AppearanceID")]
         public virtual Appearance Appearance { get; set; }
+        [ForeignKey("ReceivedBy")]
+        public virtual Employee Employee { get; set; }
     }
 }
