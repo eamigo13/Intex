@@ -24,21 +24,22 @@ namespace Intex.Controllers
             return View(workOrders.ToList());
         }
         
+        // GET:  Quote
         public ActionResult Quote(int? workOrderID)
         {
+            IQueryable<OrderCompound> compoundsInOrder;
+
             if (workOrderID != null)
             {
                 WorkOrder activeOrder = db.WorkOrders.Find(workOrderID);
 
                 ViewBag.ActiveOrder = activeOrder;
 
-                var compoundsInOrder = from c in db.OrderCompounds
+                compoundsInOrder = from c in db.OrderCompounds
                                        where c.OrderNumber == activeOrder.OrderNumber
                                        select c;
-
-                return View(compoundsInOrder.ToList());
             }
-            else if (workOrderID == null)
+            else
             {
                 WorkOrder workOrder = new WorkOrder();
                 workOrder.CustomerID = User.Identity.GetUserId();
@@ -48,9 +49,13 @@ namespace Intex.Controllers
                     db.WorkOrders.Add(workOrder);
                     db.SaveChanges();
                 }
+
+                compoundsInOrder = from c in db.OrderCompounds
+                                       where c.OrderNumber == workOrder.OrderNumber
+                                       select c;
             }
-           
-            return View();
+            
+            return View(compoundsInOrder.ToList());
         }
 
         // GET: WorkOrders/Details/5
