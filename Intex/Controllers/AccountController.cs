@@ -9,12 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Intex.Models;
+using Intex.DAL;
 
 namespace Intex.Controllers
 {
+
     [Authorize]
     public class AccountController : Controller
     {
+        private IntexContext db = new IntexContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -163,13 +166,25 @@ namespace Intex.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("CreateCustomer");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult CreateCustomer()
+        {
+            Customer customer = new Customer();
+            customer.CustomerID = User.Identity.GetUserId();
+            customer.Email = User.Identity.GetUserName();
+            db.Customers.Add(customer);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
 
         //
