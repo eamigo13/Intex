@@ -1,34 +1,22 @@
-﻿@model IEnumerable<Intex.Models.OrderCompound>
+﻿@model IEnumerable<Intex.Models.WorkOrderLine>
 
-@{
-    
-}
+
 
 <br />
 <br />
-
-<table class="table" style="border: 1px solid lightgrey">
-    <thead>
-        <tr>
-            <td>CART</td>
-        </tr>
-        <tr>
-            <td>Compound</td>
-            <td>Number of Samples</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var compound in Model)
-        {
-            <tr>
-                <td>@compound.Compound.CompoundName</td>
-                <td>@compound.Compound.TotalQty </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 <h4> Get a Quote </h4>
+
+
+
+@foreach (var item in Model)
+{
+    <p>@item.Sample.Compound.CompoundID</p>
+    <p>@item.Assay.AssayName</p>
+}
+
+<p class="btn btn-default">Add Line</p>
+
 
 <form method="post" action=@Url.Action("Quote", new { })>
     <label>Compound Name: </label>

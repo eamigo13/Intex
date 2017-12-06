@@ -53,5 +53,6 @@ namespace Intex.DAL
 
         public System.Data.Entity.DbSet<Intex.Models.WorkOrder> WorkOrders { get; set; }
 
+        public System.Data.Entity.DbSet<Intex.Models.WorkOrderLine> WorkOrderLine { get; set; }
     }
 }

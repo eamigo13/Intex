@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
+
 namespace Intex.Models
 {
+    [Table("WorkOrderLine")]
     public class WorkOrderLine
     {
         [Key, Column(Order = 0)]

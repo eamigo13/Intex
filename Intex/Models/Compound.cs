@@ -12,7 +12,7 @@ namespace Intex.Models
     {
         [Key]
         public int CompoundID { get; set; }
-        public int CustomerID { get; set; }
+        public string CustomerID { get; set; }
         public string CompoundName { get; set; }
         public decimal MolecularMass { get; set; }
 

@@ -27,35 +27,25 @@ namespace Intex.Controllers
         // GET:  Quote
         public ActionResult Quote(int? workOrderID)
         {
-            IQueryable<OrderCompound> compoundsInOrder;
+            //Create a selectlist to power a dropdown list of available Assays
+            ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
+
+            //Create a selectlist to power a dropdown list of compounds associated witht the customer account
+            var CompoundList = db.Compounds.Where(x => x.CustomerID == User.Identity.GetUserId());
+            ViewBag.Compounds = new SelectList(CompoundList, "CompoundID", "CompoundName");
 
             if (workOrderID != null)
             {
-                WorkOrder activeOrder = db.WorkOrders.Find(workOrderID);
 
-                ViewBag.ActiveOrder = activeOrder;
-
-                compoundsInOrder = from c in db.OrderCompounds
-                                       where c.OrderNumber == activeOrder.OrderNumber
-                                       select c;
             }
             else
             {
-                WorkOrder workOrder = new WorkOrder();
-                workOrder.CustomerID = User.Identity.GetUserId();
-                workOrder.StatusID = 1;  // New
-                if (ModelState.IsValid)
-                {
-                    db.WorkOrders.Add(workOrder);
-                    db.SaveChanges();
-                }
-
-                compoundsInOrder = from c in db.OrderCompounds
-                                       where c.OrderNumber == workOrder.OrderNumber
-                                       select c;
+                workOrderID = 1;
             }
-            
-            return View(compoundsInOrder.ToList());
+
+            //Pass the WorkOrderLines associated with the selected work order into the view
+            var lines = db.WorkOrderLine.Where(x => x.OrderNumber == workOrderID);
+            return View(lines.ToList());
         }
 
         // GET: WorkOrders/Details/5
