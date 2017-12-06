@@ -1,0 +1,19 @@
+﻿.row {
+    background: linear-gradient(to right top, #9eff99, lightyellow);
+}
+.split-page {
+    margin: 150px 0;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+.container{
+    margin-left: 0px;
+    margin-right: 0px;
+    max-width: none;
+}
+.navbar {
+    
+    max-height: 50px;
+    padding-left: 182px;
+    padding-right: 182px;
+}
