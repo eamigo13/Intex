@@ -57,7 +57,7 @@ namespace Intex.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
             Sample Sample = db.Samples.Find(id);
 
             ViewBag.Compound = db.Compounds.Find(Sample.CompoundID);
@@ -69,6 +69,7 @@ namespace Intex.Controllers
                 return HttpNotFound();
             }
             return View(Sample);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
