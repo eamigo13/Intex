@@ -143,6 +143,8 @@ namespace Intex.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.CountryID = new SelectList(db.Countries, "CountryID", "CountryName");
+            ViewBag.StateID = new SelectList(db.States, "StateID", "StateAbbrev");
             return View();
         }
 
@@ -155,6 +157,7 @@ namespace Intex.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Address = model.Address, City = model.City, StateID = model.StateID, CountryID = model.CountryID, PostalCode = model.PostalCode, Phone = model.Phone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
