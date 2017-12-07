@@ -48,6 +48,27 @@ namespace Intex.Controllers
             return View(lines.ToList());
         }
 
+        //GET: WorkOrders/ReceiveSample
+        public ActionResult ReceiveSample(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            Sample Sample = db.Samples.Find(id);
+
+            ViewBag.Compound = db.Compounds.Find(Sample.CompoundID);
+            WorkOrderLine line = db.WorkOrderLine.Where(x => x.SampleID == id).First();
+            ViewBag.OrderLine = line;
+
+            if (Sample == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Sample);
+        }
+
         // GET: WorkOrders/Details/5
         public ActionResult Details(int? id)
         {

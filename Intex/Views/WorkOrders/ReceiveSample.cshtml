@@ -1,0 +1,15 @@
+﻿@model Intex.Models.Sample
+
+@{
+    ViewBag.Title = "ReceiveSample";
+}
+
+<h2>Receive Sample</h2>
+
+<div class="row">
+    <div class="col-md-1">@ViewBag.OrderLine.OrderLine</div>
+    <div class="col-md-4">@ViewBag.Compound.CompoundName</div>
+    <div class="col-md-4">@Model.ReportedQty</div>
+    <div class="col-md-2">@ViewBag.OrderLine.AssayID</div>
+</div>
+

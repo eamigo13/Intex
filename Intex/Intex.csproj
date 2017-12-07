@@ -313,6 +313,7 @@
     <Content Include="Views\WorkOrderLines\Details.cshtml" />
     <Content Include="Views\WorkOrderLines\Edit.cshtml" />
     <Content Include="Views\WorkOrderLines\Index.cshtml" />
+    <Content Include="Views\WorkOrders\ReceiveSample.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
