@@ -237,6 +237,7 @@
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\homestyle.css" />
     <Content Include="Content\css\Site.css" />
+    <Content Include="Content\css\loginstyle.css" />
     <Content Include="Content\img\abottle.png" />
     <Content Include="Content\img\brand.png" />
     <Content Include="Content\img\coolvid.mp4" />
@@ -316,6 +317,7 @@
     <Content Include="Views\WorkOrderLines\Details.cshtml" />
     <Content Include="Views\WorkOrderLines\Edit.cshtml" />
     <Content Include="Views\WorkOrderLines\Index.cshtml" />
+    <Content Include="Views\WorkOrders\ReceiveSample.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

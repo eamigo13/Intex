@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using Intex.DAL;
 using Intex.Models;
+using System.Data.Entity.Validation;
 
 namespace Intex.Controllers
 {
@@ -28,11 +29,12 @@ namespace Intex.Controllers
         public ActionResult Quote(int? workOrderID)
         {
             //Create a selectlist to power a dropdown list of available Assays
-            ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
+            //ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
+            ViewBag.Assays = db.Assays;
 
             //Create a selectlist to power a dropdown list of compounds associated witht the customer account
-            var CompoundList = db.Compounds.Where(x => x.CustomerID == User.Identity.GetUserId());
-            ViewBag.Compounds = new SelectList(CompoundList, "CompoundID", "CompoundName");
+            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == "7d3df2a7-9d7c-4de5-bbba-2ae91400b236"); //Set to be nick
+            ViewBag.workOrderID = workOrderID;
 
             if (workOrderID != null)
             {
@@ -46,6 +48,61 @@ namespace Intex.Controllers
             //Pass the WorkOrderLines associated with the selected work order into the view
             var lines = db.WorkOrderLine.Where(x => x.OrderNumber == workOrderID);
             return View(lines.ToList());
+        }
+
+        //GET: WorkOrders/ReceiveSample
+        public ActionResult ReceiveSample(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            Sample Sample = db.Samples.Find(id);
+
+            ViewBag.Compound = db.Compounds.Find(Sample.CompoundID);
+            WorkOrderLine line = db.WorkOrderLine.Where(x => x.SampleID == id).First();
+            ViewBag.OrderLine = line;
+
+            if (Sample == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Sample);
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Quote([Bind(Include = "CompoundID,ReportedQty")] Sample sample,
+                                  [Bind(Include = "OrderLine,OrderNumber,AssayID")] WorkOrderLine line)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Samples.Add(sample);  //Check if we can access the AutoIncremented sampleID
+                    db.SaveChanges();
+
+                    line.SampleID = sample.SampleID;
+                    db.WorkOrderLine.Add(line);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Diagnostics.Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                }
+            }
+            
+            return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
         }
 
         // GET: WorkOrders/Details/5

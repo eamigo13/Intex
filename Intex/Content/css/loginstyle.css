@@ -1,0 +1,33 @@
+﻿body {
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.rows {
+    background: linear-gradient(to left top, #1E78BA, lightyellow);
+    margin-left: -200px;
+    width: 100vw !important;
+    height: 720px !important;
+    padding-bottom: 100px;
+    padding-left: 188px;
+}
+.rows2 {
+    background: linear-gradient(to left top, #1E78BA, lightyellow);
+    margin-left: -200px;
+    width: 100vw !important;
+    height: 800px !important;
+    padding-bottom: 100px;
+    padding-left: 188px;
+    padding-right: 25px;
+    margin-top: -22px;
+    margin-right: -1px;
+}
+
+/*.back {
+    width: 75vw !important;
+    /*height: 600px !important;*/
+    background-color: mintcream;
+    /*background: linear-gradient(to left top, #1E78BA, lightyellow);*/
+}*/
