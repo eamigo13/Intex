@@ -231,12 +231,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\aboutstyle.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\homestyle.css" />
     <Content Include="Content\css\Site.css" />
+    <Content Include="Content\img\abottle.png" />
     <Content Include="Content\img\brand.png" />
+    <Content Include="Content\img\coolvid.mp4" />
     <Content Include="Content\img\report_brand.png" />
     <Content Include="Content\img\report_header.png" />
     <Content Include="Content\img\vial.png" />

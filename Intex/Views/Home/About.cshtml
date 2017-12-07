@@ -1,7 +1,54 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<head>
+    <link rel="stylesheet" href="~/Content/css/aboutstyle.css" />
+</head>
+
+<video autoplay loop>
+    <source src="~/Content/img/coolvid.mp4" type="video/mp4" />
+</video>
+<div class="overlay">
+    <p>Qualified Professionals. <br /> Superior Tests.</p>
+    @*<p>Superior Tests</p>*@
+    @Html.ActionLink("Get a Quote Today", "Quote", "WorkOrders", null, new { @class = "btn btn-huge btn-info" })
+
+</div>
+
+<div class="whitespace">
+    <p>Northwest labs combines the expertise of tried, tested, and true indivuals with the power of modern technology. We execute chemical and compound tests, providing in-depth assay analysis on samples from all over the world.</p>
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-6 pretty" >
+        <h1>Clarity</h1>
+        <p> Real-time updates. Clean reports. Live order tracking. Our science is complex, but our reports aren't.  <br /><br />&raquo;Learn more&laquo;</p>
+    </div> 
+    <div class="col-md-6 pretty"> 
+        <h1>Our Promise</h1>
+        <p>To keep our patients, so you keep yours. </p>
+        @*<p>here are some other words. and a pretty picture. max char space  </p>*@   
+        <br />
+        <img class="bottle" src="~/Content/img/abottle.png" />
+
+    </div>
+</div>
+
+<div>
+
+
+    <div class="whitespace2">
+        <div class="col-md-8">
+            <p>Our customer driven buisiness model is our greatest asset. Give us your feedback below!</p>
+        </div>
+        <div class="col-md-4">
+            <p> </p>
+        </div>
+    </div>
+
+</div>
+<div class="whitespace2"> </div>
+
