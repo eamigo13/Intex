@@ -13,6 +13,7 @@
     <div class="col-md-2">Compound Name</div>
     <div class="col-md-2">Quantity (mg)</div>
     <div class="col-md-4">Assay Name</div>
+    <div class="col-md-3"></div>
 </div>
 @foreach (var item in Model)
 {
@@ -21,6 +22,7 @@
         <div class="col-md-2">@item.Sample.Compound.CompoundName</div>
         <div class="col-md-2">@Math.Round(item.Sample.ReportedQty, 2)</div>
         <div class="col-md-4">@item.Assay.AssayName</div>
+        @Html.ActionLink("Delete", "DeleteLine", new { orderNumber = item.OrderNumber, lineID = item.OrderLine, sampleID = item.SampleID})
     </div>
 }
 
