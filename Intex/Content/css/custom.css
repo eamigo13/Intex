@@ -27,6 +27,8 @@
 
 /** Custom Navbar Colors **/
 .navbar {
+    font-family: monospace;
+    font-weight: bold;
     max-height: 50px;
 }
 
@@ -37,26 +39,34 @@
 }
 
 .navbar-default {
+    font-family: monospace;
+    font-weight: bold;
     background-color: #1e78ba;
     border-color: #1a518a;
 }
 
-.navbar-default .navbar-brand {
-    color: #ffffff;
-}
+    .navbar-default .navbar-brand {
+        font-family: monospace;
+        font-weight: bold;
+        color: #ffffff;
+    }
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-    color: #00fffb;
-}
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .navbar-brand:focus {
+        font-family: monospace;
+        font-weight: bold;
+        color: #00fffb;
+    }
 
 .navbar-default .navbar-text {
     color: #ffffff;
 }
 
-.navbar-default .navbar-nav > li > a {
-    color: #ffffff;
-}
+    .navbar-default .navbar-nav > li > a {
+        font-family: monospace;
+        font-weight: bold;
+        color: #ffffff;
+    }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
