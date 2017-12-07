@@ -65,18 +65,50 @@ namespace Intex.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name", Order = 1)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name", Order = 2)]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", Order = 3)]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Address", Order = 4)]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "City", Order = 5)]
+        public string City { get; set; }
+
+        [Required]
+        [Display(Name = "State", Order = 6)]
+        public int StateID { get; set; }
+
+        [Required]
+        [Display(Name = "Country", Order = 7)]
+        public int CountryID { get; set; }
+
+        [Required]
+        [Display(Name = "Zip Code", Order = 8)]
+        public string PostalCode { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number", Order = 9)]
+        public string Phone { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", Order = 10)]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm password", Order = 11)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
