@@ -28,12 +28,12 @@ namespace Intex.Controllers
         public ActionResult Quote(int? workOrderID)
         {
             //Create a selectlist to power a dropdown list of available Assays
-            ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
+            //ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
+            ViewBag.Assays = db.Assays;
 
             //Create a selectlist to power a dropdown list of compounds associated witht the customer account
-            var CompoundList = db.Compounds.Where(x => x.CustomerID == User.Identity.GetUserId());
-            ViewBag.Compounds = new SelectList(CompoundList, "CompoundID", "CompoundName");
-
+            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == User.Identity.GetUserId());
+            
             if (workOrderID != null)
             {
 

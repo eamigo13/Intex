@@ -7,12 +7,16 @@
 
 <h4> Get a Quote </h4>
 
-
-
+@Html.DropDownList("AssayID", new SelectList(ViewBag.Assays, "AssayID", "AssayName"), "Select one")
+@*Html.DropDownList("CompoundID", new SelectList(ViewBag.Compounds, "CompoundID", "CompoundName"), "Select one")*@
+    
 @foreach (var item in Model)
 {
-    <p>@item.Sample.Compound.CompoundID</p>
-    <p>@item.Assay.AssayName</p>
+    <div class="row">
+        <div class="col-md-1">@item.OrderLine</div>
+        <div class="col-md-2">@item.Sample.Compound.CompoundName</div>
+        <div class="col-md-4">@item.Assay.AssayName</div>
+    </div>
 }
 
 <p class="btn btn-default">Add Line</p>
