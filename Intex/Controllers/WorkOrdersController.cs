@@ -74,6 +74,30 @@ namespace Intex.Controllers
             return View(Sample);
         }
 
+        //GET: WorkOrders/ReceiveSampleConfirmation
+        public ActionResult ReceiveSampleConfirmation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Sample Sample = db.Samples.Find(id);
+
+            ViewBag.Compound = db.Compounds.Find(Sample.CompoundID);
+
+            WorkOrderLine line = db.WorkOrderLine.Where(x => x.SampleID == id).First();
+            ViewBag.OrderLine = line;
+
+            ViewBag.CurrentUser = User.Identity.GetUserId();
+
+            if (Sample == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Sample);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Quote([Bind(Include = "CompoundID,ReportedQty")] Sample sample,
@@ -107,6 +131,21 @@ namespace Intex.Controllers
             }
             
             return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReceiveSample([Bind(Include = "SampleID,CompoundID,ReportedQty,MeasuredQty,DateArrived,ReceivedBy,ReceivingNotes,MTD,AppearanceID")] Sample sample)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(sample).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ReceiveSampleConfirmation", new { id = sample.SampleID });
+            }
+
+            return RedirectToAction("ReceiveSampleConfirmation", new { id = sample.SampleID });
         }
 
         // GET: WorkOrders/Details/5

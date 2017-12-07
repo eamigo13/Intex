@@ -31,13 +31,17 @@
         <h4>Add New Sample to Order</h4>
         <hr />
 
+        <input type="hidden" id="SampleID" name="SampleID" value="@Model.SampleID" />
+        <input type="hidden" id="DateArrived" name="DateArrived" value="@Model.CompoundID" />
+        <input type="hidden" id="DateArrived" name="DateArrived" value="@Model.ReportedQty" />
+
         <input type="hidden" id="DateArrived" name="DateArrived" value="@DateTime.Now" />
         <input type="hidden" id="ReceivedBy" name="ReceivedBy" value="@ViewBag.CurrentUser" />
 
         <div class="form-group">
             <label class="control-label col-md-2">Measured Quantity (mg)</label>
             <div class="col-md-10">
-                <input type="number" step="0.01" id="MeasuredQty" name="MeasuredQty" placeholder="@Model.ReportedQty" />
+                <input type="number" step="0.01" id="MeasuredQty" name="MeasuredQty" placeholder="@Model.ReportedQty" value="@Model.ReportedQty" />
             </div>
         </div>
 
