@@ -5,8 +5,12 @@
 
 /* original green gradient  #9eff99*/
 
+::-webkit-scrollbar {
+    display: none;
+}
 .row {
     background: linear-gradient(to right top, #9eff99, lightyellow);
+    padding-bottom: 25px;
 }
 .split-page {
 
@@ -16,6 +20,7 @@
 }
 .container{
     margin-left: 0px;
+    
     margin-right: 0px;
     max-width: none;
 }
