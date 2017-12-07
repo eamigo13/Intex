@@ -1,4 +1,4 @@
-﻿body {
+body {
 }
 
 ::-webkit-scrollbar {
@@ -10,11 +10,17 @@
     min-height: 100vh;
     min-width: 100vw;
     margin: -15px;
-    padding: 5vh 5vw;
+    padding: 5vh 10vw;
 }
 
 .container {
     margin: auto 0;
+}
+
+.navbar {
+    max-height: 50px;
+    padding-left: 10vw;
+    padding-right: 10vw;
 }
 
 .rows2 {
