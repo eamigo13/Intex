@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Intex.Models.Sample>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Appearance.AppearanceDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Compound.CustomerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportedQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MeasuredQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateArrived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivingNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MTD)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Appearance.AppearanceDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Compound.CustomerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportedQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeasuredQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateArrived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivingNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MTD)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SampleID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SampleID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SampleID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,31 @@
+﻿@model Intex.Models.Sample
+
+@{
+    ViewBag.Title = "ReceiveSample";
+}
+
+<h2>Sample Received!</h2>
+
+<p>Received By: @ViewBag.CurrentUser.FirstName @ViewBag.CurrentUser.LastName</p>
+<p>Date Arrived: @Model.DateArrived</p>
+<hr />
+
+<p>Order Number: @ViewBag.OrderLine.OrderNumber</p>
+<p>Line #: @ViewBag.OrderLine.OrderLine</p>
+<p>Coumpound: @ViewBag.Compound.CompoundName</p>
+<p>Assay: @ViewBag.Assay.AssayName</p>
+
+<hr />
+<p>Reported Qty: @Model.ReportedQty</p>
+<p>Measured Qty: @Model.MeasuredQty</p>
+<p>MTD: @Model.MTD</p>
+
+<hr />
+
+<p>Receiving Notes: @Model.ReceivingNotes</p>
+
+
+
+
+
+
