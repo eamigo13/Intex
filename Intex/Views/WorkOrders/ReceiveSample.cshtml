@@ -6,10 +6,61 @@
 
 <h2>Receive Sample</h2>
 
+<div class="row" style="font-weight: 700">
+    <div class="col-md-1">Line #</div>
+    <div class="col-md-2">Compound Name</div>
+    <div class="col-md-2">Quantity (mg)</div>
+    <div class="col-md-4">Assay Name</div>
+</div>
 <div class="row">
     <div class="col-md-1">@ViewBag.OrderLine.OrderLine</div>
-    <div class="col-md-4">@ViewBag.Compound.CompoundName</div>
-    <div class="col-md-4">@Model.ReportedQty</div>
+    <div class="col-md-2">@ViewBag.Compound.CompoundName</div>
+    <div class="col-md-2">@Model.ReportedQty</div>
     <div class="col-md-2">@ViewBag.OrderLine.AssayID</div>
 </div>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h4>Add New Sample to Order</h4>
+        <hr />
+
+        <input type="hidden" id="DateArrived" name="DateArrived" value="@DateTime.Now" />
+        <input type="hidden" id="ReceivedBy" name="ReceivedBy" value="@ViewBag.CurrentUser" />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Measured Quantity (mg)</label>
+            <div class="col-md-10">
+                <input type="number" step="0.01" id="MeasuredQty" name="MeasuredQty" placeholder="@Model.ReportedQty" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Maximum Tolerance Dose</label>
+            <div class="col-md-10">
+                <input type="number" step="0.01" id="MTD" name="MTD" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Receiving Notes</label>
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.ReceivingNotes, new { @class = "form-control", rows = "10", style = "width:100%;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+    }
 

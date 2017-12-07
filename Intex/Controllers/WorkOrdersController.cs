@@ -61,8 +61,11 @@ namespace Intex.Controllers
             Sample Sample = db.Samples.Find(id);
 
             ViewBag.Compound = db.Compounds.Find(Sample.CompoundID);
+
             WorkOrderLine line = db.WorkOrderLine.Where(x => x.SampleID == id).First();
             ViewBag.OrderLine = line;
+
+            ViewBag.CurrentUser = User.Identity.GetUserId();
 
             if (Sample == null)
             {
