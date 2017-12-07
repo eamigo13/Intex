@@ -7,27 +7,15 @@
 
 .rows {
     background: linear-gradient(to left top, #1E78BA, lightyellow);
-    margin-left: -200px;
-    width: 100vw !important;
-    height: 720px !important;
-    padding-bottom: 100px;
-    padding-left: 188px;
-}
-.rows2 {
-    background: linear-gradient(to left top, #1E78BA, lightyellow);
-    margin-left: -200px;
-    width: 100vw !important;
-    height: 800px !important;
-    padding-bottom: 100px;
-    padding-left: 188px;
-    padding-right: 25px;
-    margin-top: -22px;
-    margin-right: -1px;
+    min-height: 100vh;
+    max-height: 1200px;
+    width: 100vw;
+    padding: 50px 120px 0 80px;
+    margin: -20px 0 0 -15px;
 }
 
-/*.back {
-    width: 75vw !important;
-    /*height: 600px !important;*/
-    background-color: mintcream;
-    /*background: linear-gradient(to left top, #1E78BA, lightyellow);*/
-}*/
+.container {
+    margin-left: 0px;
+    margin-right: 0px;
+    max-width: none;
+}
