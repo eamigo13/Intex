@@ -1,0 +1,105 @@
+﻿h1 {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 46px;
+}
+
+/*no scroll bar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/*video and overlay*/
+video {
+    margin-left: -15px;
+    width: 100vw !important;
+    height: auto !important;
+}
+
+.container video {
+    position: relative;
+    z-index: 0;
+}
+
+.overlay {
+    color: #1E78BA;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 56px;
+    margin-top: 270px;
+    margin-left: 200px;
+    margin-right: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.overlay > p {
+    text-shadow: 1px 1px 0px #ffffff;
+    line-height: 70px;
+}
+
+/*this is where you handle the gradient background. row container*/
+.row {
+    background: linear-gradient(to right top, #1E78BA, lightyellow);
+    margin-left: -15px;
+    width: 100vw !important;
+    height: 700px !important;
+    padding-bottom: 100px;
+}
+
+/*white space divs between the video and the rows */
+
+.pretty {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    padding-left: 100px;
+    padding-right: 100px;
+    font-family: monospace;
+    font-size: 32px;
+}
+
+.whitespace {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 32px;
+    width: 100vw !important;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    padding-left: 182px;
+    padding-right: 182px;
+}
+
+.container {
+    position: relative;
+    margin-left: 0px;
+    margin-right: 0px;
+    max-width: none;
+}
+
+.whitespace2 {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 32px;
+    width: 100vw !important;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    padding-left: 75px;
+    padding-right: 182px;
+}
+
+/* Navbar *althoug this is obsolete because its changed in the layout. remove if you check and it isnt needed. */
+.navbar {
+    font-family: monospace;
+    font-weight: bold;
+    max-height: 50px;
+    padding-left: 182px;
+    padding-right: 182px;
+}
+
+.bottle{
+    position: absolute;
+    float: right;
+}
+
