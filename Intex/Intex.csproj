@@ -203,6 +203,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712070128104_Name.cs" />
+    <Compile Include="Migrations\201712070128104_Name.Designer.cs">
+      <DependentUpon>201712070128104_Name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appearance.cs" />
     <Compile Include="Models\Assay.cs" />
@@ -231,12 +236,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\aboutstyle.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\homestyle.css" />
     <Content Include="Content\css\Site.css" />
+    <Content Include="Content\css\loginstyle.css" />
+    <Content Include="Content\img\abottle.png" />
     <Content Include="Content\img\brand.png" />
+    <Content Include="Content\img\coolvid.mp4" />
     <Content Include="Content\img\report_brand.png" />
     <Content Include="Content\img\report_header.png" />
     <Content Include="Content\img\vial.png" />
@@ -330,6 +339,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712070128104_Name.resx">
+      <DependentUpon>201712070128104_Name.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

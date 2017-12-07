@@ -1,13 +1,26 @@
-﻿.row {
+﻿body {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+/* original green gradient  #9eff99*/
+
+::-webkit-scrollbar {
+    display: none;
+}
+.row {
     background: linear-gradient(to right top, #9eff99, lightyellow);
+    padding-bottom: 25px;
 }
 .split-page {
+
     margin: 150px 0;
-    padding-left: 150px;
-    padding-right: 150px;
+    padding-left: 125px;
+    padding-right: 120px;
 }
 .container{
     margin-left: 0px;
+    
     margin-right: 0px;
     max-width: none;
 }
@@ -16,4 +29,8 @@
     max-height: 50px;
     padding-left: 182px;
     padding-right: 182px;
+}
+.please{
+    font-family: monospace;
+    font-weight: bold;
 }

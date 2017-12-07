@@ -14,6 +14,7 @@ namespace Intex.Models
         [Key, Column(Order = 0)]
         public int OrderNumber { get; set; }
         [Key, Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderLine { get; set; }
         public int SampleID { get; set; }
         public int AssayID { get; set; }

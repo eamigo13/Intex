@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using Intex.DAL;
 using Intex.Models;
+using System.Data.Entity.Validation;
 
 namespace Intex.Controllers
 {
@@ -32,8 +33,9 @@ namespace Intex.Controllers
             ViewBag.Assays = db.Assays;
 
             //Create a selectlist to power a dropdown list of compounds associated witht the customer account
-            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == User.Identity.GetUserId());
-            
+            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == "7d3df2a7-9d7c-4de5-bbba-2ae91400b236"); //Set to be nick
+            ViewBag.workOrderID = workOrderID;
+
             if (workOrderID != null)
             {
 
@@ -67,6 +69,40 @@ namespace Intex.Controllers
                 return HttpNotFound();
             }
             return View(Sample);
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Quote([Bind(Include = "CompoundID,ReportedQty")] Sample sample,
+                                  [Bind(Include = "OrderLine,OrderNumber,AssayID")] WorkOrderLine line)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Samples.Add(sample);  //Check if we can access the AutoIncremented sampleID
+                    db.SaveChanges();
+
+                    line.SampleID = sample.SampleID;
+                    db.WorkOrderLine.Add(line);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Diagnostics.Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                }
+            }
+            
+            return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
         }
 
         // GET: WorkOrders/Details/5

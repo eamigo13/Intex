@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Intex.Models;
 using Intex.DAL;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Intex.Controllers
 {
@@ -154,7 +155,7 @@ namespace Intex.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Address = model.Address, City = model.City, StateID = model.StateID, CountryID = model.CountryID, PostalCode = model.PostalCode, Phone = model.Phone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -178,9 +179,21 @@ namespace Intex.Controllers
         [Authorize]
         public ActionResult CreateCustomer()
         {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+
             Customer customer = new Customer();
-            customer.CustomerID = User.Identity.GetUserId();
-            customer.Email = User.Identity.GetUserName();
+            customer.CustomerID = currentUser.Id;
+            customer.Email = currentUser.Email;
+            customer.FirstName = currentUser.FirstName;
+            customer.LastName = currentUser.LastName;
+            customer.Address = currentUser.Address;
+            customer.City = currentUser.City;
+            customer.StateID = currentUser.StateID;
+            customer.CountryID = currentUser.CountryID;
+            customer.PostalCode = currentUser.PostalCode;
+            customer.Phone = currentUser.Phone;
+
             db.Customers.Add(customer);
             db.SaveChanges();
 

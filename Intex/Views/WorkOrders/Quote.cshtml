@@ -7,24 +7,75 @@
 
 <h4> Get a Quote </h4>
 
-@Html.DropDownList("AssayID", new SelectList(ViewBag.Assays, "AssayID", "AssayName"), "Select one")
-@*Html.DropDownList("CompoundID", new SelectList(ViewBag.Compounds, "CompoundID", "CompoundName"), "Select one")*@
-    
+
+<div class="row" style="font-weight: 700">
+    <div class="col-md-1">Line #</div>
+    <div class="col-md-2">Compound Name</div>
+    <div class="col-md-2">Quantity (mg)</div>
+    <div class="col-md-4">Assay Name</div>
+</div>
 @foreach (var item in Model)
 {
     <div class="row">
         <div class="col-md-1">@item.OrderLine</div>
         <div class="col-md-2">@item.Sample.Compound.CompoundName</div>
+        <div class="col-md-2">@Math.Round(item.Sample.ReportedQty, 2)</div>
         <div class="col-md-4">@item.Assay.AssayName</div>
     </div>
 }
 
-<p class="btn btn-default">Add Line</p>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h4>Add New Sample to Order</h4>
+        <hr />
+
+        <input type="hidden" id="OrderNumber" name="OrderNumber" value="@ViewBag.workOrderID"/>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Compound</label>
+            <div class="col-md-3">
+                <input type="text"  placeholder="Enter a new compound" />
+            </div>
+            <div class="col-md-1">
+                <strong>OR</strong>
+            </div>
+            <div class="col-md-5">
+                @Html.DropDownList("CompoundID", new SelectList(ViewBag.Compounds, "CompoundID", "CompoundName"), "Select an Existing Compound")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Assay</label>
+            <div class="col-md-10">
+                @Html.DropDownList("AssayID", new SelectList(ViewBag.Assays, "AssayID", "AssayName"), "Select an Assay")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Quantity (mg)</label>
+            <div class="col-md-10">
+                <input type="number" step="0.01" id="ReportedQty" name="ReportedQty" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
+        </div>
 
 
-<form method="post" action=@Url.Action("Quote", new { })>
-    <label>Compound Name: </label>
-    <text ></text>
-</form>
+    </div>
+}
 
+
+@*@Html.DropDownList("AssayID", new SelectList(ViewBag.Assays, "AssayID", "AssayName"), "Select one")
+@Html.DropDownList("CompoundID", new SelectList(ViewBag.Compounds, "CompoundID", "CompoundName"), "Select one")*@
 
