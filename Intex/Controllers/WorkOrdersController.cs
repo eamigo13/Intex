@@ -28,12 +28,14 @@ namespace Intex.Controllers
         // GET:  Quote
         public ActionResult Quote(int? workOrderID)
         {
+            string custID = User.Identity.GetUserId();
+
             //Create a selectlist to power a dropdown list of available Assays
             //ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
             ViewBag.Assays = db.Assays;
 
             //Create a selectlist to power a dropdown list of compounds associated witht the customer account
-            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == "7d3df2a7-9d7c-4de5-bbba-2ae91400b236"); //Set to be nick
+            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == custID); //Set to be nick
             ViewBag.workOrderID = workOrderID;
 
             if (workOrderID != null)
@@ -47,7 +49,22 @@ namespace Intex.Controllers
 
             //Pass the WorkOrderLines associated with the selected work order into the view
             var lines = db.WorkOrderLine.Where(x => x.OrderNumber == workOrderID);
+
             return View(lines.ToList());
+        }
+
+        
+        public ActionResult DeleteLine(int orderNumber, int lineID, int sampleID)
+        {
+            WorkOrderLine workOrderLine = db.WorkOrderLine.Find(orderNumber, lineID);
+            db.WorkOrderLine.Remove(workOrderLine);
+
+            Sample sample = db.Samples.Find(sampleID);
+            db.Samples.Remove(sample);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Quote", new { workOrderNumber = orderNumber });
         }
 
         //GET: WorkOrders/ReceiveSample
@@ -87,7 +104,7 @@ namespace Intex.Controllers
                     db.WorkOrderLine.Add(line);
                     db.SaveChanges();
 
-                    return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
+                    return RedirectToAction("Quote", new { workOrderID = line.OrderNumber });
                 }
                 catch (DbEntityValidationException dbEx)
                 {
@@ -103,7 +120,7 @@ namespace Intex.Controllers
                 }
             }
             
-            return RedirectToAction("Quote", new { workOrderNumber = line.OrderNumber });
+            return RedirectToAction("Quote", new { workOrderID = line.OrderNumber });
         }
 
         // GET: WorkOrders/Details/5
