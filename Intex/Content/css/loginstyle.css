@@ -7,12 +7,22 @@
 
 .rows {
     background: linear-gradient(to left top, #1E78BA, lightyellow);
-    margin-left: -200px;
-    width: 100vw !important;
-    height: 720px !important;
-    padding-bottom: 100px;
-    padding-left: 188px;
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: -15px;
+    padding: 5vh 10vw;
 }
+
+.container {
+    margin: auto 0;
+}
+
+.navbar {
+    max-height: 50px;
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
 .rows2 {
     background: linear-gradient(to left top, #1E78BA, lightyellow);
     margin-left: -200px;
@@ -24,10 +34,3 @@
     margin-top: -22px;
     margin-right: -1px;
 }
-
-/*.back {
-    width: 75vw !important;
-    /*height: 600px !important;*/
-    background-color: mintcream;
-    /*background: linear-gradient(to left top, #1E78BA, lightyellow);*/
-}*/
