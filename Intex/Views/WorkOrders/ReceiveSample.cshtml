@@ -32,8 +32,8 @@
         <hr />
 
         <input type="hidden" id="SampleID" name="SampleID" value="@Model.SampleID" />
-        <input type="hidden" id="DateArrived" name="DateArrived" value="@Model.CompoundID" />
-        <input type="hidden" id="DateArrived" name="DateArrived" value="@Model.ReportedQty" />
+        <input type="hidden" id="CompoundID" name="CompoundID" value="@Model.CompoundID" />
+        <input type="hidden" id="ReportedQty" name="ReportedQty" value="@Model.ReportedQty" />
 
         <input type="hidden" id="DateArrived" name="DateArrived" value="@DateTime.Now" />
         <input type="hidden" id="ReceivedBy" name="ReceivedBy" value="@ViewBag.CurrentUser" />
@@ -55,7 +55,8 @@
         <div class="form-group">
             <label class="control-label col-md-2">Receiving Notes</label>
             <div class="col-md-10">
-                @Html.TextAreaFor(m => m.ReceivingNotes, new { @class = "form-control", rows = "10", style = "width:100%;" })
+                @*@Html.TextAreaFor(model => model.ReceivingNotes, new { @class = "form-control", rows = "10", style = "width:100%;" })*@
+                @Html.EditorFor(model => model.ReceivingNotes, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 

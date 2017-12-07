@@ -1,0 +1,88 @@
+﻿@model Intex.Models.Sample
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Sample</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Appearance.AppearanceDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Appearance.AppearanceDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Compound.CustomerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Compound.CustomerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportedQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportedQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeasuredQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MeasuredQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateArrived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateArrived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivingNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivingNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MTD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MTD)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

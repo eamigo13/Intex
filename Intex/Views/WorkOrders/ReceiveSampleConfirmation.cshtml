@@ -4,27 +4,28 @@
     ViewBag.Title = "ReceiveSample";
 }
 
-<h2>Receive Sample</h2>
+<h2>Sample Received!</h2>
 
-<div class="row" style="font-weight: 700">
-    <div class="col-md-1">Line #</div>
-    <div class="col-md-2">Compound Name</div>
-    <div class="col-md-2">Quantity (mg)</div>
-    <div class="col-md-4">Assay Name</div>
-</div>
-<div class="row">
-    <div class="col-md-1">@ViewBag.OrderLine.OrderLine</div>
-    <div class="col-md-2">@ViewBag.Compound.CompoundName</div>
-    <div class="col-md-2">@Model.ReportedQty</div>
-    <div class="col-md-2">@ViewBag.OrderLine.AssayID</div>
-    <div class="col-md-2">@Model.MeasuredQty</div>
-    <div class="col-md-2">@Model.MTD</div>
-    <div class="col-md-2">@Model.ReceivedBy</div>
-    <div class="col-md-2">@Model.ReceivingNotes</div>
-    <div class="col-md-2">@Model.DateArrived</div>
-</div>
+<p>Received By: @ViewBag.CurrentUser.FirstName @ViewBag.CurrentUser.LastName</p>
+<p>Date Arrived: @Model.DateArrived</p>
+<hr />
+
+<p>Order Number: @ViewBag.OrderLine.OrderNumber</p>
+<p>Line #: @ViewBag.OrderLine.OrderLine</p>
+<p>Coumpound: @ViewBag.Compound.CompoundName</p>
+<p>Assay: @ViewBag.Assay.AssayName</p>
 
 <hr />
+<p>Reported Qty: @Model.ReportedQty</p>
+<p>Measured Qty: @Model.MeasuredQty</p>
+<p>MTD: @Model.MTD</p>
+
+<hr />
+
+<p>Receiving Notes: @Model.ReceivingNotes</p>
+
+
+
 
 
 

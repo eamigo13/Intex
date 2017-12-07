@@ -89,7 +89,10 @@ namespace Intex.Controllers
             WorkOrderLine line = db.WorkOrderLine.Where(x => x.SampleID == id).First();
             ViewBag.OrderLine = line;
 
-            ViewBag.CurrentUser = User.Identity.GetUserId();
+            ViewBag.Assay = db.Assays.Find(line.AssayID);
+
+            ViewBag.CurrentUser = db.Customers.Find(User.Identity.GetUserId());
+
 
             if (Sample == null)
             {
@@ -137,7 +140,6 @@ namespace Intex.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ReceiveSample([Bind(Include = "SampleID,CompoundID,ReportedQty,MeasuredQty,DateArrived,ReceivedBy,ReceivingNotes,MTD,AppearanceID")] Sample sample)
         {
-
             if (ModelState.IsValid)
             {
                 db.Entry(sample).State = EntityState.Modified;
@@ -146,6 +148,7 @@ namespace Intex.Controllers
             }
 
             return RedirectToAction("ReceiveSampleConfirmation", new { id = sample.SampleID });
+
         }
 
         // GET: WorkOrders/Details/5
