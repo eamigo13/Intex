@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Intex.Models.WorkOrderLine>
 
+@{
+    ViewBag.Title = "Review Order";
+}
+
 <h2>Review Work Order</h2>
 
 <hr />
@@ -26,7 +30,7 @@
 
 @if (Model.Any())
 {
-    @Html.ActionLink("Generate Report", "Report", new { workOrderID = Model.First().OrderNumber }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Generate Report", "Report", new { workOrderID = Model.First().OrderNumber }, new { target="_blank", @class = "btn btn-lg btn-primary" })
 }
 else
 {

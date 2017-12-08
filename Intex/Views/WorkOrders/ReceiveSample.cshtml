@@ -16,7 +16,7 @@
     <div class="col-md-1">@ViewBag.OrderLine.OrderLine</div>
     <div class="col-md-2">@ViewBag.Compound.CompoundName</div>
     <div class="col-md-2">@Model.ReportedQty</div>
-    <div class="col-md-2">@ViewBag.OrderLine.AssayID</div>
+    <div class="col-md-4">@ViewBag.OrderLine.Assay.AssayName</div>
 </div>
 
 <hr />
@@ -28,7 +28,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <h4>Add New Sample to Order</h4>
+        <h4>Confirm Receipt of Sample</h4>
         <hr />
 
         <input type="hidden" id="SampleID" name="SampleID" value="@Model.SampleID" />

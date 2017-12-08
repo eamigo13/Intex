@@ -1,5 +1,180 @@
-﻿
+﻿@{
+    ViewBag.Title = "Proposal";
+}
 
 <h2>Proposal</h2>
+<h4>Let's follow a client as they go through the drug approval process with Northwest Labs</h4>
+<hr />
 
-@Html.ActionLink("Generate Report", "Report", "WorkOrders", new { workOrderID = 1 }, new { target = "_blank" })
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Customer)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            @Html.ActionLink("New Work Order", "Quote", "WorkOrders", null, new { target = "_blank", @class = "btn btn-lg btn-primary" }) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Create a new work order and request a quote when it's submitted.
+        </h4>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Customer)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            @Html.ActionLink("Continue Order", "Quote", "WorkOrders", new { workOrderID = 1 }, new { target = "_blank", @class = "btn btn-lg btn-primary" }) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Review, add new samples, and schedule assays
+        </h4>
+    </div>
+</div>
+
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Work Order)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            <button class="btn btn-lg btn-info" disabled>In Transit...</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Labelled compounds and samples travel to Singapore
+        </h4>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Singapore employee) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            @Html.ActionLink("Receive Compounds", "ReceiveSample", "WorkOrders", new { id = 1 }, new { target = "_blank", @class = "btn btn-lg btn-primary" }) &nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Mark samples as received when the compounds arrive from the client
+        </h4>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Work Order)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            <button class="btn btn-lg btn-info" disabled>Receive Tests...</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Work order goes through scheduled assays
+        </h4>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Seattle representative) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            @Html.ActionLink("Review Order", "ViewOrder", "WorkOrders", new { workOrderID = 1 }, new { target = "_blank", @class = "btn btn-lg btn-primary" }) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Check over the work order to ensure a customer report can be generated
+        </h4>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Seattle representative) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            @Html.ActionLink("Generate Report", "Report", "WorkOrders", new { workOrderID = 1 }, new { target = "_blank", @class = "btn btn-lg btn-primary" }) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            This standardized report can be mailed to the customer
+        </h4>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3" style="margin: 12px 0">
+        <h4>
+            (Customer)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-3" style="margin: auto 0">
+        <h4>
+            <button class="btn btn-lg btn-info" disabled>Receive Report...</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &raquo;
+        </h4>
+    </div>
+    <div class="col-md-6" style="margin: 12px 0">
+        <h4>
+            Keep calm and always use Northwest Labs for drug approval needs
+        </h4>
+    </div>
+</div>

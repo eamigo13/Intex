@@ -33,23 +33,33 @@ namespace Intex.Controllers
         public ActionResult Quote(int? workOrderID)
         {
             string custID = User.Identity.GetUserId();
+            string custName = db.Customers.Find(custID).FirstName.ToString();
 
             //Create a selectlist to power a dropdown list of available Assays
             //ViewBag.Assays = new SelectList(db.Assays, "AssayID", "AssayName");
             ViewBag.Assays = db.Assays;
 
             //Create a selectlist to power a dropdown list of compounds associated witht the customer account
-            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == custID); //Set to be nick
+            ViewBag.Compounds = db.Compounds.Where(x => x.CustomerID == custID);
+
+            if (workOrderID == null)
+            {
+                WorkOrder newOrder = new WorkOrder();
+                newOrder.OrderTypeID = 2;
+                newOrder.CustomerID = custID;
+                newOrder.QuoteDate = DateTime.Today;
+                newOrder.OrderDate = DateTime.Today;
+                newOrder.StatusID = 1;
+                newOrder.Comments = "This is a new order for " + custName;
+                db.WorkOrders.Add(newOrder);
+                db.SaveChanges();
+
+                workOrderID = newOrder.OrderNumber;
+            }
+
+
             ViewBag.workOrderID = workOrderID;
-
-            if (workOrderID != null)
-            {
-
-            }
-            else
-            {
-                workOrderID = 1;
-            }
+            ViewBag.CustomerName = custName;
 
             //Pass the WorkOrderLines associated with the selected work order into the view
             var lines = db.WorkOrderLine.Where(x => x.OrderNumber == workOrderID);
@@ -66,7 +76,7 @@ namespace Intex.Controllers
             {
                 try
                 {
-                    db.Samples.Add(sample);  //Check if we can access the AutoIncremented sampleID
+                    db.Samples.Add(sample);
                     db.SaveChanges();
 
                     line.SampleID = sample.SampleID;
@@ -102,7 +112,7 @@ namespace Intex.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("Quote", new { workOrderNumber = orderNumber });
+            return RedirectToAction("Quote", new { workOrderID = orderNumber });
         }
 
         //GET: WorkOrders/ReceiveSample
