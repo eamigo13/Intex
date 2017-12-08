@@ -10,6 +10,10 @@ using System.Web.Mvc;
 using Intex.DAL;
 using Intex.Models;
 using System.Data.Entity.Validation;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using System.IO;
 
 namespace Intex.Controllers
 {
@@ -53,7 +57,41 @@ namespace Intex.Controllers
             return View(lines.ToList());
         }
 
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Quote([Bind(Include = "CompoundID,ReportedQty")] Sample sample,
+                                  [Bind(Include = "OrderLine,OrderNumber,AssayID")] WorkOrderLine line)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Samples.Add(sample);  //Check if we can access the AutoIncremented sampleID
+                    db.SaveChanges();
+
+                    line.SampleID = sample.SampleID;
+                    db.WorkOrderLine.Add(line);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Quote", new { workOrderID = line.OrderNumber });
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Diagnostics.Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                }
+            }
+
+            return RedirectToAction("Quote", new { workOrderID = line.OrderNumber });
+        }
+
         public ActionResult DeleteLine(int orderNumber, int lineID, int sampleID)
         {
             WorkOrderLine workOrderLine = db.WorkOrderLine.Find(orderNumber, lineID);
@@ -116,41 +154,6 @@ namespace Intex.Controllers
                 return HttpNotFound();
             }
             return View(Sample);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Quote([Bind(Include = "CompoundID,ReportedQty")] Sample sample,
-                                  [Bind(Include = "OrderLine,OrderNumber,AssayID")] WorkOrderLine line)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Samples.Add(sample);  //Check if we can access the AutoIncremented sampleID
-                    db.SaveChanges();
-
-                    line.SampleID = sample.SampleID;
-                    db.WorkOrderLine.Add(line);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Quote", new { workOrderID = line.OrderNumber });
-                }
-                catch (DbEntityValidationException dbEx)
-                {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            System.Diagnostics.Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }
-                }
-            }
-            
-            return RedirectToAction("Quote", new { workOrderID = line.OrderNumber });
         }
 
         [HttpPost]
@@ -283,5 +286,112 @@ namespace Intex.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET:  Work Order after Results.  For employees only.
+        public ActionResult ViewOrder(int workOrderID)
+        {
+            //Pass the WorkOrderLines associated with the selected work order into the view
+            var lines = db.WorkOrderLine.Where(x => x.OrderNumber == workOrderID);
+
+            return View(lines.ToList());
+        }
+
+        public FileStreamResult Report(int workOrderID)
+        {
+            // Get the work order for the report
+            WorkOrder woForReport = db.WorkOrders.Find(workOrderID);
+
+            // Get each work order line
+            var lines = db.WorkOrderLine.Where(x => x.OrderNumber == workOrderID).ToList();
+
+            // Get the customer information
+            Customer woCustomer = db.Customers.Find(woForReport.CustomerID);
+
+            // Load test results for each sample/line in the work order
+            var tests = db.Tests.Where(x => x.OrderNumber == workOrderID).ToList();
+            
+            // Start constructing the PDF
+            MemoryStream workStream = new MemoryStream();
+            Document document = new Document(PageSize.A4, 10, 10, 10, 10);
+            PdfWriter writer = PdfWriter.GetInstance(document, workStream);
+            writer.CloseStream = false;
+            document.Open();
+            /** All document changes go below this line **/
+
+            /* Header */
+            Paragraph header = new Paragraph();
+            Chunk glue = new Chunk(new VerticalPositionMark());
+            Image logo = Image.GetInstance(Server.MapPath("~/Content/img/report_header.png"));
+            logo.ScaleAbsolute(document.PageSize.Width - 20, 80);
+            header.Add(new Chunk(logo, 0, -65));
+            document.Add(header);
+
+            /* Two horizontal rules */
+            PdfContentByte cb = writer.DirectContent;
+            cb.MoveTo(10, document.PageSize.Height - 110);
+            cb.LineTo(document.PageSize.Width - 10, document.PageSize.Height - 110);
+            cb.Stroke();
+            cb.MoveTo(10, document.PageSize.Height - 111);
+            cb.LineTo(document.PageSize.Width - 10, document.PageSize.Height - 111);
+            cb.Stroke();
+
+            /* Add spacing to get into document body */
+            document.Add(new Chunk("\n\n\n\n\n\n\n\n\n"));
+
+            /* Address to client */
+
+            PdfPTable client_memo = new PdfPTable(3);
+            client_memo.DefaultCell.Border = Rectangle.NO_BORDER;
+
+            client_memo.AddCell(woCustomer.City + ", " + woCustomer.State.StateName);
+            client_memo.AddCell("");
+            client_memo.AddCell("Work Order: " + woForReport.OrderNumber);
+
+            client_memo.AddCell(woCustomer.FirstName + " " + woCustomer.LastName);
+            client_memo.AddCell("");
+            client_memo.AddCell("Ordered: " + (woForReport.OrderDate).ToShortDateString());
+
+            client_memo.AddCell(woCustomer.Address);
+            client_memo.AddCell("");
+            client_memo.AddCell("Completed: " + DateTime.Now.ToShortDateString());           
+
+            document.Add(client_memo);
+
+            /* Separate client data from report data */
+
+            document.Add(new Chunk("\n\n\n"));
+
+            /* Report Table */
+
+            PdfPTable report_table = new PdfPTable(3);
+            report_table.SetWidths(new float[] { 20, 30, 70 });
+            report_table.DefaultCell.Border = Rectangle.NO_BORDER;
+
+            report_table.AddCell("Line #");  // Line number
+            report_table.AddCell("Compound");  // Compound name
+            report_table.AddCell("Assay");  // Assay name
+
+            foreach (var line in lines)
+            {
+                report_table.AddCell(line.OrderLine.ToString());  // Line number
+                report_table.AddCell(line.Sample.Compound.CompoundName.ToString());  // Compound name
+                report_table.AddCell(line.Assay.AssayName.ToString());  // Assay name
+            }
+
+            document.Add(report_table);
+
+            /* Footer */
+
+
+            /** All document changes go above this line **/
+            document.Close();
+            byte[] byteInfo = workStream.ToArray();
+            workStream.Write(byteInfo, 0, byteInfo.Length);
+            workStream.Position = 0;
+
+            return new FileStreamResult(workStream, "application/pdf");
+        }
+
+
     }
 }

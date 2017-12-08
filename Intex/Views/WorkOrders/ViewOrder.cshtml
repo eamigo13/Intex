@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Intex.Models.WorkOrderLine>
+
+<h2>Review Work Order</h2>
+
+<hr />
+
+<div class="row" style="font-weight: 700">
+    <div class="col-md-1">Line #</div>
+    <div class="col-md-2">Compound Name</div>
+    <div class="col-md-2">Quantity (mg)</div>
+    <div class="col-md-4">Assay Name</div>
+    <div class="col-md-3"></div>
+</div>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-1">@item.OrderLine</div>
+        <div class="col-md-2">@item.Sample.Compound.CompoundName</div>
+        <div class="col-md-2">@Math.Round(item.Sample.ReportedQty, 2)</div>
+        <div class="col-md-4">@item.Assay.AssayName</div>
+        @Html.ActionLink("Delete", "DeleteLine", new { orderNumber = item.OrderNumber, lineID = item.OrderLine, sampleID = item.SampleID })
+    </div>
+}
+
+<hr />
+
+@if (Model.Any())
+{
+    @Html.ActionLink("Generate Report", "Report", new { workOrderID = Model.First().OrderNumber }, new { @class = "btn btn-primary" })
+}
+else
+{
+    
+    <h4 style="background-color: lightyellow">There are no line items in this work order.  Please add samples and test results to generate the report.</h4>
+}
