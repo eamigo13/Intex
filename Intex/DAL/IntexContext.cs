@@ -37,6 +37,8 @@ namespace Intex.DAL
 
         public System.Data.Entity.DbSet<Intex.Models.OrderType> OrderTypes { get; set; }
 
+        public System.Data.Entity.DbSet<Intex.Models.Result> Results { get; set; }
+
         public System.Data.Entity.DbSet<Intex.Models.ResultFile> ResultFiles { get; set; }
 
         public System.Data.Entity.DbSet<Intex.Models.ResultsType> RestultsTypes { get; set; }

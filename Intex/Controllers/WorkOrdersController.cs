@@ -307,16 +307,40 @@ namespace Intex.Controllers
             // Get the customer information
             Customer woCustomer = db.Customers.Find(woForReport.CustomerID);
 
-            // Load test results for each sample/line in the work order
+            // Load tests for each sample/line in the work order
             var tests = db.Tests.Where(x => x.OrderNumber == workOrderID).ToList();
+
+            // Load test results for each test
+            var results = db.Results.Where(x => x.PassFail != null).ToList();
+
+            // Load test types for comparison
+            var types = db.TestTypes.Where(x => x.TestName != null).ToList();
             
             // Start constructing the PDF
             MemoryStream workStream = new MemoryStream();
-            Document document = new Document(PageSize.A4, 10, 10, 10, 10);
+            Document document = new Document(PageSize.A4, 10, 10, 10, 20);
             PdfWriter writer = PdfWriter.GetInstance(document, workStream);
             writer.CloseStream = false;
             document.Open();
             /** All document changes go below this line **/
+
+
+            /* Fonts and styles */
+
+            //For Headers
+            BaseFont bfCourier = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, false);
+            Font headingFont = new Font(bfCourier, 24.0f, Font.BOLD, BaseColor.BLUE);
+
+            //For cell headings
+            BaseFont bfArial = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1250, false);
+            Font cellHeadFont = new Font(bfArial, 16.0f, Font.NORMAL, BaseColor.WHITE);
+
+            //For passed tests
+            Font testPassFont = new Font(bfArial, 15.0f, Font.BOLD, new BaseColor(1, 198, 87));
+
+            //For failed tests
+            Font testFailFont = new Font(bfArial, 15.0f, Font.BOLD, new BaseColor(255, 90, 61));
+
 
             /* Header */
             Paragraph header = new Paragraph();
@@ -335,7 +359,7 @@ namespace Intex.Controllers
             cb.LineTo(document.PageSize.Width - 10, document.PageSize.Height - 111);
             cb.Stroke();
 
-            /* Add spacing to get into document body */
+            /* Break */
             document.Add(new Chunk("\n\n\n\n\n\n\n\n\n"));
 
             /* Address to client */
@@ -343,11 +367,11 @@ namespace Intex.Controllers
             PdfPTable client_memo = new PdfPTable(3);
             client_memo.DefaultCell.Border = Rectangle.NO_BORDER;
 
-            client_memo.AddCell(woCustomer.City + ", " + woCustomer.State.StateName);
+            client_memo.AddCell(woCustomer.FirstName + " " + woCustomer.LastName);
             client_memo.AddCell("");
             client_memo.AddCell("Work Order: " + woForReport.OrderNumber);
 
-            client_memo.AddCell(woCustomer.FirstName + " " + woCustomer.LastName);
+            client_memo.AddCell(woCustomer.City + ", " + woCustomer.State.StateName);
             client_memo.AddCell("");
             client_memo.AddCell("Ordered: " + (woForReport.OrderDate).ToShortDateString());
 
@@ -357,28 +381,119 @@ namespace Intex.Controllers
 
             document.Add(client_memo);
 
-            /* Separate client data from report data */
+            /* Break */
 
-            document.Add(new Chunk("\n\n\n"));
+            document.Add(new Chunk("\n"));
+
+            /* Introduce test results section */
+
+            var testIntro = new PdfPTable(1);
+            testIntro.DefaultCell.Border = Rectangle.NO_BORDER;
+            testIntro.WidthPercentage = 100;
+
+            PdfPCell introText = new PdfPCell( new Phrase("TEST RESULTS", headingFont));
+            introText.Border = Rectangle.NO_BORDER;
+            introText.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            testIntro.AddCell(introText);
+
+            document.Add(testIntro);
+
+            /* Break */
+
+            document.Add(new Chunk("\n"));
 
             /* Report Table */
 
-            PdfPTable report_table = new PdfPTable(3);
-            report_table.SetWidths(new float[] { 20, 30, 70 });
-            report_table.DefaultCell.Border = Rectangle.NO_BORDER;
+            var reportTable = new PdfPTable(3);
+            reportTable.SetWidths(new float[] { 25, 35, 40 });
+            reportTable.DefaultCell.Border = Rectangle.NO_BORDER;
 
-            report_table.AddCell("Line #");  // Line number
-            report_table.AddCell("Compound");  // Compound name
-            report_table.AddCell("Assay");  // Assay name
+            //Set outer table header
+            var hText = new Phrase("Line #", cellHeadFont);
+            var hCell = new PdfPCell(hText);
+            hCell.Border = Rectangle.NO_BORDER;
+            hCell.BackgroundColor = BaseColor.DARK_GRAY;
+            hCell.AddElement(hText);
+            reportTable.AddCell(hCell);  // Line number
+
+            hText = new Phrase("Compound", cellHeadFont);
+            hCell = new PdfPCell(hText);
+            hCell.Border = Rectangle.NO_BORDER;
+            hCell.BackgroundColor = BaseColor.DARK_GRAY;
+            hCell.AddElement(hText);
+            reportTable.AddCell(hCell); // Compound name
+
+            hText = new Phrase("Assay", cellHeadFont);
+            hCell = new PdfPCell(hText);
+            hCell.Border = Rectangle.NO_BORDER;
+            hCell.BackgroundColor = BaseColor.DARK_GRAY;
+            hCell.AddElement(hText);
+            reportTable.AddCell(hCell);  // Assay name
+
+            /* Break */
+            reportTable.AddCell(" ");
+            reportTable.AddCell(" ");
+            reportTable.AddCell(" ");
 
             foreach (var line in lines)
             {
-                report_table.AddCell(line.OrderLine.ToString());  // Line number
-                report_table.AddCell(line.Sample.Compound.CompoundName.ToString());  // Compound name
-                report_table.AddCell(line.Assay.AssayName.ToString());  // Assay name
+                //Set line item details as a header
+                var liText = new Phrase(line.OrderLine.ToString());
+                var liCell = new PdfPCell(liText);
+                liCell.BackgroundColor = new BaseColor(255, 250, 191);
+                liCell.AddElement(liText);
+                reportTable.AddCell(liCell); // Line number
+                
+                liText = new Phrase(line.Sample.Compound.CompoundName.ToString());
+                liCell = new PdfPCell(liText);
+                liCell.BackgroundColor = new BaseColor(255, 250, 191);
+                liCell.AddElement(liText);
+                reportTable.AddCell(liCell); // Compound name
+
+                liText = new Phrase(line.Assay.AssayName.ToString());
+                liCell = new PdfPCell(liText);
+                liCell.BackgroundColor = new BaseColor(255, 250, 191);
+                liCell.AddElement(liText);
+                reportTable.AddCell(liCell); // Assay name
+
+                var thisLinesTests = tests.Where(x => x.OrderLine == line.OrderLine).ToList();
+
+                foreach (var test in thisLinesTests)
+                {
+                    var thisTestsType = types.FirstOrDefault(x => x.TestTypeID == test.TestTypeID);
+                    var thisTestsResults = results.FirstOrDefault(x => x.TestID == test.TestID);
+
+                    //Output results for the test
+                    var trText = new Phrase(thisTestsType.TestName.ToString());
+                    var trCell = new PdfPCell(trText);
+                    trCell.BackgroundColor = new BaseColor(232, 239, 252);
+                    trCell.AddElement(trText);
+                    reportTable.AddCell(trCell); // Test name
+                    
+                    trText = new Phrase(thisTestsResults.Comments.ToString());
+                    trCell = new PdfPCell(trText);
+                    trCell.BackgroundColor = new BaseColor(232, 239, 252);
+                    trCell.AddElement(trText);
+                    reportTable.AddCell(trCell); // Test comments
+                    
+                    trText = new Phrase(thisTestsResults.PassFail.ToString(),
+                                        thisTestsResults.PassFail == "Pass" ? testPassFont : testFailFont);
+                    trCell = new PdfPCell(trText);
+                    trCell.BackgroundColor = new BaseColor(232, 239, 252);
+                    trCell.AddElement(trText);
+                    reportTable.AddCell(trCell); // Test result
+
+                }
+
+                /* Break */
+                reportTable.AddCell(" ");
+                reportTable.AddCell(" ");
+                reportTable.AddCell(" ");
+
             }
 
-            document.Add(report_table);
+            document.Add(reportTable);
 
             /* Footer */
 
