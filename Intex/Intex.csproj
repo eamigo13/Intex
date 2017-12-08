@@ -219,6 +219,7 @@
     <Compile Include="Models\OrderCompound.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\OrderType.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ResultFile.cs" />
     <Compile Include="Models\ResultsType.cs" />
     <Compile Include="Models\Sample.cs" />
@@ -326,6 +327,7 @@
     <Content Include="Views\Samples\Edit.cshtml" />
     <Content Include="Views\Samples\Index.cshtml" />
     <Content Include="Views\WorkOrders\ViewOrder.cshtml" />
+    <Content Include="Views\Home\Proposal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
